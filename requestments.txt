@@ -1,6 +1,0 @@
-pandas
-streamlit
-altair
-plotly==5.10.0
-pandas
-pip==22.2.2
