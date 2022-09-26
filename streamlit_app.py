@@ -6,9 +6,9 @@ import plotly.express as px
 from chart import get_chart
 
 # 准备调用的文件
-file = open('D:/GitHub/streamlit0925/data/features.geojson','r',encoding='utf-8')                     #### 绘制地图专用
+file = open('data/features.geojson','r',encoding='utf-8')                     #### 绘制地图专用
 counties = json.load(file)
-df_Statename = pd.read_excel('D:/GitHub/streamlit0925/data/国家洲名称转换.xlsx')
+df_Statename = pd.read_excel('data/国家洲名称转换.xlsx')
 
 # 设置侧边栏
 with st.sidebar:
