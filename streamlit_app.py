@@ -99,11 +99,11 @@ df_item = df_useful_panel.groupby(['平台SKU'],as_index=False)['总销售额'].
 df_item = df_item.reset_index(drop=True)
 
 # 整理地图数据
-df_State = df_useful_panel.目的地所属州.value_counts().rename_axis('目的地所属州').reset_index(name='counts')
+df_State = df_useful_panel.目的地所属州.value_counts().rename_axis('目的地所属州').reset_index(name='订单数量')
 df_State_useful = pd.merge(df_State, df_Statename, on="目的地所属州", how="left")
 df_State_useful.head()
 px.set_mapbox_access_token(token=st.secrets["token"])
-fig = px.choropleth_mapbox(df_State_useful, geojson=counties, locations='statename', color='counts',
+fig = px.choropleth_mapbox(df_State_useful, geojson=counties, locations='statename', color='订单数量',
                            color_continuous_scale='RdBu',
                            # range_color=(0, 200),
                            mapbox_style="streets",
