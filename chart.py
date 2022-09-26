@@ -9,7 +9,7 @@ def get_chart(data):
     )
 
     lines = (
-        alt.Chart(data, title="Evolution of stock prices")
+        alt.Chart(data, title="销售曲线图")
         .mark_line()
         .encode(
             x="订单时间",
