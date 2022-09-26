@@ -17,26 +17,28 @@ with st.sidebar:
         # Can be used wherever a "file-like" object is accepted:
         df_order = pd.read_csv(uploaded_file1)
     else:
-        st.info(
-            f"""
-                👆 上传原始订单文件
-                """
-        )
+        df_order = pd.read_csv('data/KD订单导出数据.xlsx')
+#         st.info(
+#             f"""
+#                 👆 上传原始订单文件
+#                 """
+#         )
 
-        st.stop() 
+#         st.stop() 
 
     uploaded_file2 = st.file_uploader('上传匹配文件')
     if uploaded_file2 is not None:
         # Can be used wherever a "file-like" object is accepted:
         df_items = pd.read_excel(uploaded_file2) 
     else:
-        st.info(
-            f"""
-                👆 上传匹配文件
-                """
-        )
+         df_items = pd.read_excel('data/Kadehome商品总表.xlsx') 
+#         st.info(
+#             f"""
+#                 👆 上传匹配文件
+#                 """
+#         )
 
-        st.stop()
+#         st.stop()
     
     # 处理上传的文件
     # 标准化原始订单的列名称 --- 用于处理Wayfair原始订单
