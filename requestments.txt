@@ -1,5 +1,6 @@
 pandas
 streamlit
 altair
-pandas
 plotly
+pandas
+
