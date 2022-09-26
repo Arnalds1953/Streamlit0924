@@ -17,7 +17,7 @@ with st.sidebar:
         # Can be used wherever a "file-like" object is accepted:
         df_order = pd.read_csv(uploaded_file1)
     else:
-        df_order = pd.read_csv('data/KD订单导出数据.xlsx')
+        df_order = pd.read_csv('data/KD订单导出数据.csv')
 #         st.info(
 #             f"""
 #                 👆 上传原始订单文件
