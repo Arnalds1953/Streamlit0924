@@ -103,7 +103,7 @@ df_State = df_useful_panel.目的地所属州.value_counts().rename_axis('目的
 df_State_useful = pd.merge(df_State, df_Statename, on="目的地所属州", how="left")
 df_State_useful.head()
 px.set_mapbox_access_token(token=st.secrets["token"])
-fig = px.choropleth_mapbox(df_State_useful, geojson=counties, locations='statename', color='订单数量',
+fig = px.choropleth_mapbox(df_State_useful, geojson=counties, locations='state', color='订单数量',
                            color_continuous_scale='RdBu',
                            # range_color=(0, 200),
                            mapbox_style="streets",
