@@ -166,19 +166,43 @@ vendor_number = st.multiselect(
 )
 df_2 = df_useful_panel.query('供应商编码 == @vendor_number')
 
+# 供应商维度分析
+df_vendor_line = df_2.groupby(['订单时间_月','供应商编码'],as_index=False)[['总销售额','销售数量']].sum()
+fig_vendor_bar_1 = fig = px.bar(df_vendor_line, x="订单时间_月", y="销售数量",
+                                  color='供应商编码', barmode='group')
+fig_vendor_bar_2 = fig = px.bar(df_vendor_line, x="订单时间_月", y="总销售额",
+                                  color='供应商编码', barmode='group')
+
+with st.expander("查看数据处理结果"):
+    tab1, tab2, tab3 = st.tabs(["销售数量", "销售金额", "数据表格"])
+    with tab1:
+        st.plotly_chart(fig_vendor_bar_1)
+    with tab2:
+        st.plotly_chart(fig_vendor_bar_2)
+    with tab3:
+        st.write(df_vendor_line)
+
+# 商品类别维度分析
 sort = st.multiselect(
     "选择分类", 
     options=df_2['分类'].unique(),
     default=df_2['分类'].unique(), 
     )
 df_3 = df_2.query('分类 == @sort')
+df_sort_line = df_3.groupby(['订单时间_月','供应商编码','分类'],as_index=False)[['总销售额','销售数量']].sum()
+df_sort_line_1 = fig = px.bar(df_sort_line, x="订单时间_月", y="销售数量",
+                                  color='分类', barmode='group', text='供应商编码',)
+df_sort_line_2 = fig = px.bar(df_sort_line, x="订单时间_月", y="总销售额",
+                                  color='分类', barmode='group',text='供应商编码')
 
-# 供应商维度分析
-df_vendor_line = df_3.groupby(['订单时间_月','分类','供应商编码'],as_index=False)['总销售额'].sum()
-fig_vendor_bar = fig = px.bar(df_vendor_line, x="订单时间_月", y="总销售额",
-                                  color='供应商编码', barmode='group')
-st.plotly_chart(fig_vendor_bar)
-
+with st.expander("查看数据处理结果"):
+    tab1, tab2, tab3 = st.tabs(["销售数量", "销售金额", "数据表格"])
+    with tab1:
+        st.plotly_chart(df_sort_line_1)
+    with tab2:
+        st.plotly_chart(df_sort_line_2)
+    with tab3:
+        st.write(df_sort_line)
 
 # SKU维度分析
 itemsku = st.multiselect(
@@ -186,13 +210,17 @@ itemsku = st.multiselect(
     options=df_3['平台SKU'].unique()
     )
 df_4 = df_3.query('平台SKU == @itemsku')
-df_item_line = df_4.groupby(['订单时间_月','分类','供应商编码','平台SKU'],as_index=False)['总销售额'].sum()
-fig_item_bar = fig = px.bar(df_item_line, x="订单时间_月", y="总销售额",
+df_item_line = df_4.groupby(['订单时间_月','分类','供应商编码','平台SKU'],as_index=False)[['总销售额','销售数量']].sum()
+fig_item_bar_1 = fig = px.bar(df_item_line, x="订单时间_月", y="销售数量",
+                                  color='平台SKU', barmode='group')
+fig_item_bar_2 = fig = px.bar(df_item_line, x="订单时间_月", y="总销售额",
                                   color='平台SKU', barmode='group')
 
-st.plotly_chart(fig_item_bar)
-with st.expander("查看供应商筛选结果"):
-    st.write(df_vendor_line)
-    
-with st.expander("查看商品筛选结果"):
-    st.write(df_item_line)
+with st.expander("查看数据处理结果"):
+    tab1, tab2, tab3 = st.tabs(["销售数量", "销售金额", "数据表格"])
+    with tab1:
+        st.plotly_chart(fig_item_bar_1)
+    with tab2:
+        st.plotly_chart(fig_item_bar_2)
+    with tab3:
+        st.write(df_item_line)
